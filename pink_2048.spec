@@ -5,7 +5,7 @@ a = Analysis(
     ['pink_2048.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('assets', 'assets')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
