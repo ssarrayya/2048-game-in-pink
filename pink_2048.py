@@ -1,12 +1,23 @@
 import pygame
 import random
+import sys
 import os
 
 os.environ['SDL_VIDEO_CENTERED'] = '1'  # centers the window
 pygame.init()
 
+# setting up paths
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS  # PyInstaller temp folder
+    except AttributeError:
+        base_path = os.path.abspath(".")  # Development
+    return os.path.join(base_path, relative_path)
 
-pygame.init()
+font_path = resource_path(os.path.join("assets", "OpenDyslexic3-Bold.ttf"))
+my_font = pygame.font.Font(font_path, 24)
+
+high_score_path = resource_path(os.path.join("assets", "high_score"))
 
 # initial set-up
 WIDTH=550
@@ -15,7 +26,7 @@ screen=pygame.display.set_mode([WIDTH,HEIGHT])
 pygame.display.set_caption('Accessible 2048')
 timer=pygame.time.Clock()
 fps=60
-font=pygame.font.Font('C:/Users/User/2048/assets/OpenDyslexic3-Bold.ttf', 24)
+font=my_font
 previous_board=None
 previous_score=0
 
@@ -44,7 +55,7 @@ spawn_new=True
 init_count=0
 direction=''
 score=0
-file=open('C:/Users/User/2048/assets/high_score', 'r')
+file=open(high_score_path, 'r')
 init_high=int(file.readline())
 file.close()
 high_score=init_high
@@ -201,7 +212,7 @@ def draw_pieces(board):
 
             if value > 0:
                 value_len = len(str(value))
-                font_tile = pygame.font.Font('C:/Users/User/2048/assets/OpenDyslexic3-Bold.ttf', 48 - (5 * value_len))
+                font_tile = pygame.font.Font(font_path, 48 - (5 * value_len))
                 value_text = font_tile.render(str(value), True, value_color)
                 text_rect = value_text.get_rect(center=(tile_x + 37, tile_y + 37))
                 screen.blit(value_text, text_rect)
@@ -231,7 +242,7 @@ while run:
     if game_over:
         draw_over()
         if high_score > init_high:
-            file=open('C:/Users/User/2048/assets/high_score', 'w')
+            file=open(high_score_path, 'w')
             file.write(f'{high_score}')
             file.close()
             init_high=high_score
