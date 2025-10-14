@@ -14,8 +14,8 @@ def resource_path(relative_path):
         base_path = os.path.abspath(".")  # Development
     return os.path.join(base_path, relative_path)
 
-font_path = resource_path(os.path.join("assets", "OpenDyslexic3-Bold.ttf"))
-my_font = pygame.font.Font(font_path, 24)
+font_path = resource_path(os.path.join("assets", "AtkinsonHyperlegible-Bold.ttf"))
+my_font = pygame.font.Font(font_path, 30)
 
 high_score_path = resource_path(os.path.join("assets", "high_score"))
 
@@ -31,22 +31,22 @@ previous_board=None
 previous_score=0
 
 # 2048 game color library
-colors={0: (250,224,228),
-          2: (247,202,208),
-          4: (249,190,199),
-          8: (251,177,189),
-          16: (255,153,172),
-          32: (255,133,161),
-          64: (255,112,150),
-          128: (255,107,149),
-          256: (255,77,109),
-          512: (255,10,84),
-          1024: (201,24,74),
-          2048: (164,19,60),
-          'light text': (255, 255, 255),
-          'dark text': (11, 11, 11),
-          'other': (0, 0, 0),
-          'bg': (187, 173, 160)}
+colors={0: (255,255,255),
+          2: (255,240,243),
+          4: (255,179,193),
+          8: (255,143,163),
+          16: (227,120,140),
+          32: (219,73,125),
+          64: (195,50,106),
+          128: (170,32,92),
+          256: (145,20,75),
+          512: (120,15,65),
+          1024: (100,10,42),
+          2048: (74,5,30),
+          'light text': (255,255,255),
+          'dark text': (11,11,11),
+          'other': (0,0,0),
+          'bg': (187,173,160)}
 
 # game variables initialize
 board_values=[[0 for _ in range(4)] for _ in range(4)]
@@ -201,7 +201,7 @@ def draw_pieces(board):
     for i in range(4):
         for j in range(4):
             value = board[i][j]
-            value_color = colors['light text'] if value > 8 else colors['dark text']
+            value_color = colors['light text'] if value > 16 else colors['dark text']
             color = colors[value] if value <= 2048 else colors['other']
 
             # Centered tile positions
